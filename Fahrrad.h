@@ -17,7 +17,7 @@ public:
 	virtual ~Fahrrad();
 
 	virtual double dGeschwindigkeit() override;
-	virtual void vAusgeben() const override;
+	virtual void vAusgeben(ostream& o) const override;
 
 private:
 
