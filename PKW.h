@@ -18,7 +18,7 @@ public:
 
 	virtual double dTanken(double dMenge = numeric_limits<double>::infinity());
 	virtual void vSimulieren(double dGlobaleZeit) override;
-	virtual void vAusgeben() const override;
+	virtual void vAusgeben(ostream& o) const override;
 	virtual double dGeschwindigkeit() override;
 
 private:
