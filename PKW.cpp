@@ -57,9 +57,9 @@ void PKW::vSimulieren(double dGlobaleZeit)
     }
 }
 
-void PKW::vAusgeben() const
+void PKW::vAusgeben(ostream& o) const
 {
-	Fahrzeug::vAusgeben();
+	Fahrzeug::vAusgeben(o);
 	cout << setw(20) << (p_dGesamtStrecke * p_dVerbrauch) / 100 //Gesamtverbrauch
 		 << setw(18) << p_dTankinhalt << "\n";
 }
