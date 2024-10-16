@@ -52,7 +52,7 @@ void vAufgabe_1()
 }
 
 
-void vAufgabe_1a()
+void vAufgabe_1a(ostream& o)
 {
 	vector<unique_ptr<Fahrzeug>> vectorFahrzeuge;
 
@@ -78,14 +78,14 @@ void vAufgabe_1a()
 		for (auto& fahrzeug : vectorFahrzeuge)
 		{
 			fahrzeug->vSimulieren(dGlobaleZeit);
-			fahrzeug->vAusgeben();
+			fahrzeug->vAusgeben(o);
 		}
 		dGlobaleZeit += dZeitbruch;
 	}
 
 }
 
-void vAufgabe_2()
+void vAufgabe_2(ostream& o)
 {
 	vector<unique_ptr<Fahrzeug>> vectorPKWFahrrad;
 
@@ -106,7 +106,7 @@ void vAufgabe_2()
 	for(int i=0; i<iAnzahlPKWs; i++)
 	{
 		std::string name = "PKW" + to_string(i + 1);
-		double dMaxGeschwindigkeit = 100 + i*10; // Beispielwerte
+		double dMaxGeschwindigkeit = 100 + i*10; // Placeholder Werte
 		double dVerbrauch = 10 + i;                	//TODO Werteeingabe vom Benutzer
 		double dTankvolumen = 50 + i;
 		vectorPKWFahrrad.push_back(make_unique<PKW>(name, dMaxGeschwindigkeit, dVerbrauch, dTankvolumen));
@@ -123,7 +123,7 @@ void vAufgabe_2()
 	Fahrzeug::vKopf();
 	for (auto& fahrzeug : vectorPKWFahrrad)
 	{
-		fahrzeug->vAusgeben();
+		fahrzeug->vAusgeben(o);
 	}
 
 	double dZeittakt = 0.1; //Beispielzeittakt 6 Minuten
@@ -135,7 +135,7 @@ void vAufgabe_2()
 		for (auto& fahrzeug : vectorPKWFahrrad)
 		{
 			fahrzeug->vSimulieren(dGlobaleZeit);
-			fahrzeug->vAusgeben();
+			fahrzeug->vAusgeben(o);
 		}
 
 		//Volltanken nach 3 Stunden mit Toleranz Epsilon
@@ -155,18 +155,56 @@ void vAufgabe_2()
 
 }
 
+void vAufgabe_3()
+{
+	Fahrzeug Fahrzeug1 = Fahrzeug("Fahrzeug1", 100);
+	PKW PKW1 = PKW("PKW1", 200, 5, 50);
+	Fahrrad Fahrrad1 = Fahrrad("Fahrrad1", 30);
+
+	cout << "Test Operator <<" << endl;
+
+	cout << Fahrzeug1 << endl;
+	cout << PKW1 << endl;
+	cout << Fahrrad1 << endl;
+
+	cout << "Test Operator = " << endl;
+	Fahrzeug Fahrzeug2 = PKW1;
+	cout << Fahrzeug2 << endl;
+
+	while(dGlobaleZeit < 5)
+	{
+		dGlobaleZeit += 0.1;
+		Fahrzeug1.vSimulieren(dGlobaleZeit);
+		PKW1.vSimulieren(dGlobaleZeit);
+		Fahrrad1.vSimulieren(dGlobaleZeit);
+	}
+
+	cout << "Test Operator <" << endl;
+
+	if(PKW1 < Fahrrad1)
+	{
+		cout << "PKW ist (natürlich) schneller gefahren" << endl;
+	}
+
+	else
+	{
+		cout << "wtf" << endl;
+	}
+}
+
 int main()
 {
-	vAufgabe_1();
-	Fahrzeug::vKopf();
+	//vAufgabe_1();
+	//Fahrzeug::vKopf();
 
-	Fahrzeug pkw1("PKW1", 40);
-	Fahrzeug auto3("AUTO3", 30);
+	//Fahrzeug pkw1("PKW1", 40);
+	//Fahrzeug auto3("AUTO3", 30);
 	//pkw1.vAusgeben();
 	//auto3.vAusgeben();
 
 	//vAufgabe_1a();
-	vAufgabe_2();
+	//vAufgabe_2(cout);
+	vAufgabe_3();
 
 	return 0;
 }
