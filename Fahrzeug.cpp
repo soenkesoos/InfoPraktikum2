@@ -34,7 +34,7 @@ Fahrzeug::~Fahrzeug() {
 	//cout << "ID: " << p_iID << endl << endl;
 }
 
-void Fahrzeug::vAusgeben() const
+void Fahrzeug::vAusgeben(ostream& o) const
 {
 	cout << setprecision(2) << setiosflags(ios::fixed) << resetiosflags(ios::left) << setiosflags(ios::right) << setw(2) << setfill(' ') << p_iID
 		 << setw(10) << p_sName
@@ -70,4 +70,36 @@ void Fahrzeug::vSimulieren(double dGlobaleZeit)
 double Fahrzeug::dGeschwindigkeit()
 {
 	return p_dMaxGeschwindigkeit;
+}
+
+double Fahrzeug::dGetGesamtstrecke() const
+{
+	return p_dGesamtStrecke;
+}
+
+ostream& operator<<(ostream& o, const Fahrzeug& fahrzeug)
+{
+	fahrzeug.vAusgeben(o);
+	return o;
+}
+
+bool operator<(Fahrzeug f1, Fahrzeug f2)
+{
+	if(f1.dGetGesamtstrecke() < f2.dGetGesamtstrecke())
+	{
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
+}
+
+Fahrzeug& Fahrzeug::operator=(const Fahrzeug& fahrzeug)
+{
+	p_sName = fahrzeug.p_sName + "_copy";
+	p_dMaxGeschwindigkeit = fahrzeug.p_dMaxGeschwindigkeit;
+
+	return *this;
 }
