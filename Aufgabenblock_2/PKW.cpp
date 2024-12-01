@@ -52,17 +52,24 @@ void PKW::vSimulieren()
         return;
     }
 
-    if (p_dTankinhalt > 0 && (p_dTankinhalt - (p_dGesamtStrecke * p_dVerbrauch)/100) >= 0)
-    {
-    	p_dTankinhalt -= (p_dGesamtStrecke * p_dVerbrauch) / 100.0; //durch 100 rechnen, da Verbrauch in L/100km angegeben ist
-    	Fahrzeug::vSimulieren();
-    }
+    if(p_dTankinhalt <= 0)
+	{
+		p_dTankinhalt = 0;
+		cout << "Der Tank vom Auto " << p_sName << " ist leer!" << endl;
+		return;
+	}
 
-    if(p_dTankinhalt < 0)
+    Fahrzeug::vSimulieren();
+
+    double dVerbrauch = p_dTankinhalt - (p_dGesamtStrecke * p_dVerbrauch) / 100.0; //durch 100 rechnen, da Verbrauch in L/100km angegeben ist
+
+    if(dVerbrauch < 0)
     {
     	p_dTankinhalt = 0;
-    	cout << "Der Tank vom Auto " << p_sName << "ist leer!" << endl;
+		cout << "Der Tank vom Auto " << p_sName << " ist leer!" << endl;
+		return;
     }
+    p_dTankinhalt -= (p_dGesamtStrecke * p_dVerbrauch) / 100.0;
 }
 
 void PKW::vAusgeben(ostream& o) const
