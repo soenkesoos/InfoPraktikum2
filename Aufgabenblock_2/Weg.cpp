@@ -109,15 +109,15 @@ double Weg::getLimit() const
 
 unique_ptr<Fahrzeug> Weg::pAbgabe(const Fahrzeug& pFzg)
 {
-	 for (auto it = p_pFahrzeuge.begin(); it != p_pFahrzeuge.end(); ++it)
-	 {
-		if (*(*it) == pFzg)
-		{
-			// unique_ptr verschieben und aus der Liste entfernen
-			unique_ptr<Fahrzeug> pGefundenesFzg = move(*it);
-			p_pFahrzeuge.erase(it);
-			return pGefundenesFzg;
+	for(auto it = p_pFahrzeuge.begin(); it != p_pFahrzeuge.end(); ++it){
+		if(*it == nullptr){
+			continue;
 		}
-	 }
+		if(**it == pFzg){
+			unique_ptr<Fahrzeug> tempFz = move(*it);
+			p_pFahrzeuge.erase(it);
+			return tempFz;
+		}
+	}
 	return nullptr;
 }
