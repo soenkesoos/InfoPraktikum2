@@ -17,6 +17,7 @@
 #include "SimuClient.h"
 #include "vertagt_liste.h"
 #include "Kreuzung.h"
+#include "Simulation.h"
 
 #include <algorithm>
 #include <vector>
@@ -498,6 +499,37 @@ void vAufgabe_8()
 	}
 }
 
+void vAufgabe_9()
+{
+	ifstream infile("Simu.dat");
+
+	if(!infile)
+	{
+		throw runtime_error("Error beim Einlesen der Datei!");
+		return;
+	}
+
+	try
+	{
+		Simulation simulation;
+		simulation.vEinlesen(infile);
+
+		double dDauer = 10;
+		double dZeitschritt = 1;
+		simulation.vSimulieren(dDauer, dZeitschritt);
+	}
+
+	catch(exception& e)
+	{
+		cout << "FEHLER" << e.what() << endl;
+	}
+}
+
+void vAufgabe_9a()
+{
+
+}
+
 int main()
 {
 	//vAufgabe_1();
@@ -519,7 +551,9 @@ int main()
 	//vAufgabe_6a();
 	//vAufgabe_6_Teil3();
 	//vAufgabe_7();
-	vAufgabe_8();
+	//vAufgabe_8();
+	vAufgabe_9();
+	vAufgabe_9a();
 
 	return 0;
 }
