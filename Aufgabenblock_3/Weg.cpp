@@ -50,9 +50,6 @@ void Weg::vSimulieren()
 		catch(Fahrausnahme& e) {
 			e.vBearbeiten();
 		}
-		catch(exception& e) {
-			cerr << "Exception caught: " << e.what() << endl;
-		}
 	}
 	p_pFahrzeuge.vAktualisieren();
 }

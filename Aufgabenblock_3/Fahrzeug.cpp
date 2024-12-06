@@ -154,3 +154,9 @@ double Fahrzeug::dGetTankinhalt() const
 {
 	return 0;
 }
+
+void Fahrzeug::vEinlesen(istream& is)
+{
+	Simulationsobjekt::vEinlesen(is);
+	is >> p_dMaxGeschwindigkeit;
+}

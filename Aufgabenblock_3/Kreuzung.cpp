@@ -8,7 +8,9 @@
 #include "Kreuzung.h"
 #include "PKW.h"
 
-Kreuzung::Kreuzung() {
+Kreuzung::Kreuzung()
+	: Simulationsobjekt()
+{
 }
 
 Kreuzung::Kreuzung(string sName, double dTankstellenvolumen)
@@ -95,4 +97,10 @@ shared_ptr<Weg> Kreuzung::pZufaelligerWeg(Weg& rWeg)
 double Kreuzung::dGetTankstelleninhalt() const
 {
 	return p_dTankstelle;
+}
+
+void Kreuzung::vEinlesen(istream& is)
+{
+	Simulationsobjekt::vEinlesen(is);
+	is >> p_dTankstelle;
 }

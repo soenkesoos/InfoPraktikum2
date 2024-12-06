@@ -23,6 +23,9 @@
 #include <iomanip>
 #include <cmath>
 #include <random>
+#include <fstream>
+#include <exception>
+#include <stdexcept>
 using namespace std;
 
 //globale Uhr
@@ -461,6 +464,40 @@ void vAufgabe_7()
 	}
 }
 
+void vAufgabe_8()
+{
+
+	ifstream infile("VO.dat");
+
+	if(!infile)
+	{
+		throw runtime_error("Error beim Einlesen der Datei!");
+		return;
+	}
+	unique_ptr<PKW> pkw = make_unique<PKW>();
+	unique_ptr<Fahrrad> fahrrad = make_unique<Fahrrad>();
+	shared_ptr<Kreuzung> kreuzung = make_shared<Kreuzung>();
+
+	Fahrzeug::vKopf();
+
+	try
+	{
+		infile >> *pkw;
+		infile >> *fahrrad;
+		infile >> *kreuzung;
+
+		cout << *pkw;
+		cout << *fahrrad;
+		cout << *kreuzung;
+	}
+
+	catch(exception& e)
+	{
+		cout << "FEHLER" << e.what() << endl;
+		return;
+	}
+}
+
 int main()
 {
 	//vAufgabe_1();
@@ -481,7 +518,8 @@ int main()
 	//vAufgabe_6();
 	//vAufgabe_6a();
 	//vAufgabe_6_Teil3();
-	vAufgabe_7();
+	//vAufgabe_7();
+	vAufgabe_8();
 
 	return 0;
 }

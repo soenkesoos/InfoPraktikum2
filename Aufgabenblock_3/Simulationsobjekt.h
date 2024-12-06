@@ -24,6 +24,7 @@ public:
 
 	virtual void vAusgeben(ostream& os) const;
 	virtual void vSimulieren() = 0;
+	virtual void vEinlesen(istream& is);
 
 	Simulationsobjekt(const Simulationsobjekt&) = delete;
 	bool operator==(const Simulationsobjekt& obj) const;
@@ -39,5 +40,6 @@ private:
 
 };
 ostream& operator<<(std::ostream& os, const Simulationsobjekt& obj);
+istream& operator>>(istream& is, Simulationsobjekt& obj);
 
 #endif /* SIMULATIONSOBJEKT_H_ */

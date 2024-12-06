@@ -38,6 +38,7 @@ public:
 
     //Ausgabe Fahrzeugdaten
     virtual void vAusgeben(ostream& o) const override;
+    virtual void vEinlesen(istream& is) override;
     static void vKopf();
     virtual void vSimulieren() override;
     virtual double dTanken(double dMenge = std::numeric_limits<double>::infinity());

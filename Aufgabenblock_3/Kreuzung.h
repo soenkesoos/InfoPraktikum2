@@ -30,10 +30,11 @@ public:
 	void vSimulieren() override;
 	shared_ptr<Weg> pZufaelligerWeg(Weg& rWeg);
 	double dGetTankstelleninhalt() const;
+	void vEinlesen(istream& is) override;
 
 private:
 	vector<std::shared_ptr<Weg>> p_pWege;
-	double p_dTankstelle; //Volumen, das zum Tanken zur Verfügung steht
+	double p_dTankstelle = 0; //Volumen, das zum Tanken zur Verfügung steht
 };
 
 #endif /* KREUZUNG_H_ */

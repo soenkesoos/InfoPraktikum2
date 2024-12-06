@@ -10,8 +10,13 @@
 #include "Verhalten.h"
 #include "SimuClient.h"
 
+PKW::PKW()
+	: Fahrzeug()
+{
+}
+
 PKW::PKW(string sName, const double dGeschwindigkeit, const double dVerbrauch)
-: Fahrzeug(sName, dGeschwindigkeit), p_dVerbrauch(dVerbrauch)
+	: Fahrzeug(sName, dGeschwindigkeit), p_dVerbrauch(dVerbrauch)
 {
 }
 
@@ -24,7 +29,8 @@ PKW::PKW(string sName, const double dGeschwindigkeit, const double dVerbrauch, c
 {
 }
 
-PKW::~PKW() {
+PKW::~PKW()
+{
 }
 
 double PKW::dTanken(double dMenge)
@@ -45,7 +51,7 @@ double PKW::dTanken(double dMenge)
 	return (p_dTankinhalt - dTankVorher);
 }
 
-void PKW::vSimulieren()
+/*void PKW::vSimulieren()
 {
     if (p_dZeit >= dGlobaleZeit)
     {
@@ -64,6 +70,32 @@ void PKW::vSimulieren()
 		cout << "Der Tank vom Auto " << p_sName << " ist leer!" << endl;
 	}
 
+}*/
+
+void PKW::vSimulieren()
+{
+    if (p_dZeit >= dGlobaleZeit)
+    {
+        return;
+    }
+
+    if(p_dTankinhalt <= 0)
+	{
+		p_dTankinhalt = 0;
+		return;
+	}
+
+    Fahrzeug::vSimulieren();
+
+    double dVerbrauch = p_dTankinhalt - (p_dGesamtStrecke * p_dVerbrauch) / 100.0; //durch 100 rechnen, da Verbrauch in L/100km angegeben ist
+
+    if(dVerbrauch < 0)
+    {
+    	p_dTankinhalt = 0;
+		cout << "Der Tank vom Auto " << p_sName << " ist leer!" << endl;
+		return;
+    }
+    p_dTankinhalt -= (p_dGesamtStrecke * p_dVerbrauch) / 100.0;
 }
 
 void PKW::vAusgeben(ostream& o) const
@@ -93,4 +125,11 @@ void PKW::vZeichnen(const Weg& rWeg) const
 double PKW::dGetTankinhalt() const
 {
 	return p_dTankinhalt;
+}
+
+void PKW::vEinlesen(istream& is)
+{
+	Fahrzeug::vEinlesen(is);
+	is >> p_dVerbrauch >> p_dTankvolumen;
+	p_dTankinhalt = p_dTankvolumen/2;
 }

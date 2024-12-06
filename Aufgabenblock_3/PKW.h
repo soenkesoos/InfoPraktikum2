@@ -13,6 +13,7 @@
 class PKW : public Fahrzeug
 {
 public:
+	PKW(); ///Standardkonstruktor
 	PKW(string sName, const double dGeschwindigkeit, const double dVerbrauch);
 	PKW(string sName, const double dGeschwindigkeit, const double dVerbrauch, const double dTankvolumen);
 	virtual ~PKW();
@@ -20,13 +21,14 @@ public:
 	double dTanken(double dMenge = numeric_limits<double>::infinity()) override;
 	void vSimulieren() override;
 	void vAusgeben(ostream& o) const override;
+	void vEinlesen(istream& is) override;
 	double dGeschwindigkeit() const override;
 	void vZeichnen(const Weg& rWeg) const override;
 	double dGetTankinhalt() const override;
 
 private:
-	const double p_dVerbrauch = 0; //in Liter/100km
-	const double p_dTankvolumen = 55;
+	double p_dVerbrauch = 0; //in Liter/100km
+	double p_dTankvolumen = 55;
 	double p_dTankinhalt = 55/2; // in Liter
 };
 

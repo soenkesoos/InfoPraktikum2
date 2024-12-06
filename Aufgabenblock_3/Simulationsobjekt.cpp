@@ -49,3 +49,25 @@ string Simulationsobjekt::sGetName() const
 {
 	return p_sName;
 }
+
+void Simulationsobjekt::vEinlesen(istream& is)
+{
+	if(!p_sName.empty())
+	{
+		throw runtime_error("Das Objekt wurde bereits initialisiert mit dem Namen: " + p_sName);
+	}
+
+	is >> p_sName;
+}
+
+ostream& operator<<(ostream& os, const Simulationsobjekt& obj)
+{
+	obj.vAusgeben(os);
+	return os;
+}
+
+istream& operator>>(istream& is, Simulationsobjekt& obj)
+{
+	obj.vEinlesen(is);
+	return is;
+}
