@@ -19,6 +19,7 @@
 #include "Fahrrad.h"
 #include "Weg.h"
 #include "Tempolimit.h"
+#include "SimuClient.h"
 
 using namespace std;
 
@@ -35,7 +36,6 @@ public:
 private:
 	map<string, shared_ptr<Kreuzung>> p_mKreuzungen; //map sucht nach Kreuzung mit Key value string (name)
 	vector<shared_ptr<Kreuzung>> p_vKreuzungen;
-	vector<unique_ptr<Fahrzeug>> p_vFahrzeuge;
 };
 
 #endif /* SIMULATION_H_ */

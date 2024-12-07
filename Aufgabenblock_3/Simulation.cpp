@@ -19,11 +19,11 @@ Simulation::~Simulation() {
 void Simulation::vEinlesen(istream& is, bool bMitGrafik)
 {
 	string sZeile;
-	int iZeilenzaehler;
+	int iZeilenzaehler = 0;
 
 	if(bMitGrafik)
 	{
-		//TODO
+		bInitialisiereGrafik(2000, 2000);
 	}
 
 	while(getline(is, sZeile))
@@ -51,34 +51,76 @@ void Simulation::vEinlesen(istream& is, bool bMitGrafik)
 				}
 				p_mKreuzungen[name] = kreuzung;
 				p_vKreuzungen.push_back(move(kreuzung));
+
+				//Mit Grafikausgabe
+				if(bMitGrafik)
+				{
+					string sXKoordinate;
+					string sYKoordinate;
+
+					iss >> sXKoordinate >> sYKoordinate;
+					bZeichneKreuzung(stoi(sXKoordinate), stoi(sYKoordinate));
+				}
 			}
 
 			else if(sKeyword == "PKW")
 			{
 				cout << "PKW" << endl;
 				string name;
+				string sGeschwindigkeit;
 				double geschwindigkeit;
+				string sVerbrauch;
 				double verbrauch;
+				string sTankvolumen;
 				double tankvolumen;
 				string startkreuzungName;
+				string sStartzeit;
 				double startzeit;
 
-				iss >> name >> geschwindigkeit >> verbrauch >> tankvolumen >> startkreuzungName >> startzeit;
+				iss >> name >> sGeschwindigkeit >> sVerbrauch >> sTankvolumen >> startkreuzungName >> sStartzeit;
+
+				geschwindigkeit = stod(sGeschwindigkeit);
+				verbrauch = stod(sVerbrauch);
+				tankvolumen = stod(sTankvolumen);
+				startzeit = stod(sStartzeit);
+
 				unique_ptr<PKW> pkw = make_unique<PKW>(name, geschwindigkeit, verbrauch, tankvolumen);
-				p_vFahrzeuge.push_back(move(pkw));
+
+				if(p_mKreuzungen.count(startkreuzungName))
+				{
+					p_mKreuzungen[startkreuzungName]->vAnnahme(move(pkw), startzeit);
+				}
+				else
+				{
+					throw runtime_error("Kreuzung wurde nicht gefunden");
+				}
 			}
 
 			else if(sKeyword == "FAHRRAD")
 			{
 				cout << "Fahrrad" << endl;
 				string name;
+				string sGeschwindigkeit;
 				double geschwindigkeit;
 				string startkreuzungName;
+				string sStartzeit;
 				double startzeit;
 
-				iss >> name >> geschwindigkeit >> startkreuzungName >> startzeit;
+				iss >> name >> sGeschwindigkeit >> startkreuzungName >> sStartzeit;
+
+				geschwindigkeit = stod(sGeschwindigkeit);
+				startzeit = stod(sStartzeit);
+
 				unique_ptr<Fahrrad> fahrrad = make_unique<Fahrrad>(name, geschwindigkeit);
-				p_vFahrzeuge.push_back(move(fahrrad));
+
+				if(p_mKreuzungen.count(startkreuzungName))
+				{
+					p_mKreuzungen[startkreuzungName]->vAnnahme(move(fahrrad), startzeit);
+				}
+				else
+				{
+					throw runtime_error("Kreuzung wurde nicht gefunden");
+				}
 			}
 
 			else if (sKeyword == "STRASSE")
@@ -117,9 +159,46 @@ void Simulation::vEinlesen(istream& is, bool bMitGrafik)
 				std::shared_ptr<Weg> wegQZ = std::make_shared<Weg>(nameWegQZ, laenge, tempolimit, ueberholverbot, zielkreuzung);
 				std::shared_ptr<Weg> wegZQ = std::make_shared<Weg>(nameWegZQ, laenge, tempolimit, ueberholverbot, quellkreuzung);
 
+				if (p_mKreuzungen.count(nameQuellkreuzung))
+				{
+					quellkreuzung = p_mKreuzungen[nameQuellkreuzung];
+				}
+				else
+				{
+					throw runtime_error("Kreuzung nicht gefunden");
+				}
+
+				if (p_mKreuzungen.count(nameZielkreuzung))
+				{
+					zielkreuzung = p_mKreuzungen[nameZielkreuzung];
+				}
+				else {
+					throw runtime_error("Kreuzung nicht gefunden");
+				}
+
 				if(quellkreuzung != nullptr && zielkreuzung != nullptr)
 				{
 					quellkreuzung->vVerbinde(nameWegQZ, nameWegZQ, laenge, quellkreuzung, zielkreuzung, tempolimit, ueberholverbot);
+				}
+
+				//Mit Grafikausgabe
+				if(bMitGrafik)
+				{
+					string sAnzahlKoordinaten;
+					iss >> sAnzahlKoordinaten;
+					int iAnzahlKoordinaten = stoi(sAnzahlKoordinaten);
+					int iKoordinaten[iAnzahlKoordinaten*2];
+					string sKoordinate;
+
+					for(int i=0; i<iAnzahlKoordinaten*2; i++)
+					{
+						iss >> sKoordinate;
+						cout << sKoordinate << endl;
+						int iKoordinate = stoi(sKoordinate);
+						iKoordinaten[i] = iKoordinate;
+					}
+
+					bZeichneStrasse(nameWegQZ, nameWegZQ, laenge, iAnzahlKoordinaten, iKoordinaten);
 				}
 			}
 
@@ -131,7 +210,7 @@ void Simulation::vEinlesen(istream& is, bool bMitGrafik)
 
 		catch(exception& e)
 		{
-			cout << "Fehler beim Einlesen" << e.what() << endl;
+			cout << "Fehler beim Einlesen: " << e.what() << endl;
 		}
 	}
 }
@@ -144,11 +223,14 @@ void Simulation::vSimulieren(double dDauer, double dZeitschritt)
 
 	while(dGlobaleZeit < dEndzeit)
 	{
-		for (auto& [name, kreuzung] : p_mKreuzungen)
+		for (auto& kreuzung : p_vKreuzungen)
 		{
 			kreuzung->vSimulieren();
 		}
+
 		dGlobaleZeit += dZeitschritt;
+		vSetzeZeit(dGlobaleZeit);
+		vSleep(100);
 	}
 
 	cout << "Simulation beendet" << endl;

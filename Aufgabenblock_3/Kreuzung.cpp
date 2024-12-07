@@ -29,6 +29,7 @@ void Kreuzung::vVerbinde(string sHinweg, string sRueckweg, double dWeglaenge, sh
 	shared_ptr<Weg> pRueckweg = std::make_shared<Weg>(sRueckweg, dWeglaenge, eTempolimit, bUeberholverbot, pStartkreuzung, pHinweg);
 
 	pHinweg->vSetRueckweg(pRueckweg);
+	//pRueckweg->vSetRueckweg(pHinweg);
 
 	pStartkreuzung->p_pWege.push_back(pHinweg);
 	pZielkreuzung->p_pWege.push_back(pRueckweg);
@@ -36,10 +37,31 @@ void Kreuzung::vVerbinde(string sHinweg, string sRueckweg, double dWeglaenge, sh
 
 void Kreuzung::vTanken(Fahrzeug& rFzg)
 {
+	/*PKW* pPKW = dynamic_cast<PKW*>(&rFzg); // Überprüfen, ob das Fahrzeug ein PKW ist
+	if (pPKW != nullptr && p_dTankstelle > 0.0)
+	{
+		double dTankbedarf = pPKW->dGetTankinhalt();
+		if (p_dTankstelle >= dTankbedarf)
+		{
+			pPKW->dTanken(dTankbedarf);
+			p_dTankstelle -= dTankbedarf;
+		}
+		else
+		{
+			pPKW->dTanken(p_dTankstelle);
+			p_dTankstelle = 0.0;
+		}
+	}*/
+
 	if(p_dTankstelle > 0)
+	{
 		p_dTankstelle -= rFzg.dTanken();
-	if(p_dTankstelle < 0)
+	}
+
+	if(p_dTankstelle <= 0)
+	{
 		p_dTankstelle = 0;
+	}
 }
 
 void Kreuzung::vAnnahme(unique_ptr<Fahrzeug> pFzg, double dStartzeit)

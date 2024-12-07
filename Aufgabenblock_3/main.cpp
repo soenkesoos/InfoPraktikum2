@@ -515,8 +515,9 @@ void vAufgabe_9()
 		simulation.vEinlesen(infile);
 
 		double dDauer = 10;
-		double dZeitschritt = 1;
+		double dZeitschritt = 0.1;
 		simulation.vSimulieren(dDauer, dZeitschritt);
+		cout << dGlobaleZeit << endl;
 	}
 
 	catch(exception& e)
@@ -527,7 +528,35 @@ void vAufgabe_9()
 
 void vAufgabe_9a()
 {
+	ifstream infile("SimuDisplay.dat");
 
+	if(!infile)
+	{
+		throw runtime_error("Error beim Einlesen der Datei!");
+		return;
+	}
+
+	try
+	{
+		Simulation simulation;
+		simulation.vEinlesen(infile, true);
+		double dDauer = 10;
+		double dZeitschritt = 0.25;
+		simulation.vSimulieren(dDauer+dGlobaleZeit, dZeitschritt);
+
+		int x;
+		cout << "Gebe 1 ein um Fenster zu schließen";
+		cin >> x;
+		if(x==1)
+		{
+			vBeendeGrafik();
+		}
+	}
+
+	catch(exception& e)
+	{
+		cout << "FEHLER" << e.what() << endl;
+	}
 }
 
 int main()
@@ -552,7 +581,7 @@ int main()
 	//vAufgabe_6_Teil3();
 	//vAufgabe_7();
 	//vAufgabe_8();
-	vAufgabe_9();
+	//vAufgabe_9();
 	vAufgabe_9a();
 
 	return 0;
