@@ -581,8 +581,8 @@ int main()
 	//vAufgabe_6_Teil3();
 	//vAufgabe_7();
 	//vAufgabe_8();
-	//vAufgabe_9();
-	vAufgabe_9a();
+	vAufgabe_9();
+	// vAufgabe_9a();
 
 	return 0;
 }

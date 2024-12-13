@@ -32,10 +32,16 @@ public:
 
 	void vEinlesen(istream& is, bool bMitGrafik = false);
 	void vSimulieren(double dDauer, double dZeitschritt);
+	
 
 private:
 	map<string, shared_ptr<Kreuzung>> p_mKreuzungen; //map sucht nach Kreuzung mit Key value string (name)
 	vector<shared_ptr<Kreuzung>> p_vKreuzungen;
+
+	void vLeseKreuzung(std::istringstream& iss, bool bMitGrafik);
+    void vLeseWeg(std::istringstream& iss, bool bMitGrafik);
+    void vLesePkw(std::istringstream& iss);
+    void vLeseFahrrad(std::istringstream& iss);
 };
 
 #endif /* SIMULATION_H_ */
