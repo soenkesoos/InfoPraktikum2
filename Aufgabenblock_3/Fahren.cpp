@@ -36,8 +36,8 @@ double Fahren::dStrecke(Fahrzeug& aFzg, double dZeitIntervall)
 	{
 		if (dynamic_cast<PKW*>(&aFzg))
 		{
-			cout <<"Test PKW" << endl;
-			cout << "Test:" << aFzg.dGetAbschnittStrecke() + dMoeglicheStrecke << " "<<p_rWeg.dGetVirtuelleSchranke() << endl;
+			// cout <<"Test PKW" << endl;
+			// cout << "Test:" << aFzg.dGetAbschnittStrecke() + dMoeglicheStrecke << " "<<p_rWeg.dGetVirtuelleSchranke() << endl;
 			if (aFzg.dGetTankinhalt() != 0 && (aFzg.dGetAbschnittStrecke() + dMoeglicheStrecke) > (p_rWeg.dGetVirtuelleSchranke()))
 			{
 				cout << "Das Fahrzeug kann nicht weiterfahren aufgrund des Überholverbots.\n";
@@ -46,8 +46,8 @@ double Fahren::dStrecke(Fahrzeug& aFzg, double dZeitIntervall)
 		}
 		else if (dynamic_cast<Fahrrad*>(&aFzg))
 		{
-			cout << "Test Fahrrad" << endl;
-			cout << "Test:" << aFzg.dGetAbschnittStrecke() + dMoeglicheStrecke <<" "<< p_rWeg.dGetVirtuelleSchranke() << endl;
+			// cout << "Test Fahrrad" << endl;
+			// cout << "Test:" << aFzg.dGetAbschnittStrecke() + dMoeglicheStrecke <<" "<< p_rWeg.dGetVirtuelleSchranke() << endl;
 			if ((aFzg.dGetAbschnittStrecke() + dMoeglicheStrecke) > (p_rWeg.dGetVirtuelleSchranke() - 0.001))
 			{
 				cout << "Das Fahrzeug kann nicht weiterfahren aufgrund des Überholverbots von Fahrrädern.\n";
