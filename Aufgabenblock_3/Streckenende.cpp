@@ -23,14 +23,14 @@ Streckenende::~Streckenende() {
 
 void Streckenende::vBearbeiten()
 {
-	cout << "Fahrausnahme Streckenende auf Weg" << p_rWeg.sGetName() << ", Fahrzeug: " << p_rFahrzeug.sGetName() << endl;
+	cout << "Fahrausnahme Streckenende" << endl;
 
 	cout << "ZEIT :" << dGlobaleZeit  << "\n"
 			 << "KREUZUNG :" << p_rWeg.pGetZielkreuzung()->sGetName() << " " << p_rWeg.pGetZielkreuzung()->dGetTankstelleninhalt() << "\n"
 			 << "WECHSEL :" << p_rWeg.sGetName() << "->" << p_rWeg.pGetRueckweg()->sGetName() <<"\n"
 			 << "FAHRZEUG :" << "\n";
 	Fahrzeug::vKopf();
-	p_rFahrzeug.vAusgeben(cout);
+	cout << p_rFahrzeug << endl << endl;
 
 	unique_ptr<Fahrzeug> pEntferntesFzg = p_rWeg.pAbgabe(p_rFahrzeug);
 	auto pKreuzung = p_rWeg.pGetZielkreuzung();

@@ -18,7 +18,7 @@ void Simulation::vEinlesen(istream &is, bool bMitGrafik) {
 
 	while (getline(is, sZeile)) {
 		iZeilenzaehler++;
-		cout << "Aktuelle Zeile: " << iZeilenzaehler << "\t" << sZeile;
+		cout << "Aktuelle Zeile: " << iZeilenzaehler << "\t" << sZeile << endl;
 		istringstream iss(sZeile);
 		string sKeyword;
 		iss >> sKeyword;
@@ -42,7 +42,7 @@ void Simulation::vEinlesen(istream &is, bool bMitGrafik) {
 }
 
 void Simulation::vLeseKreuzung(istringstream &iss, bool bMitGrafik) {
-	cout << "Kreuzung" << endl;
+	// cout << "Kreuzung" << endl;		// this was somehow overwriting previous output "Aktuelle Zeile: ..."
 	string name, sTankstellenvolumen;
 	iss >> name >> sTankstellenvolumen;
 	double tankstellenvolumen = (double) stoi(sTankstellenvolumen);
@@ -66,7 +66,7 @@ void Simulation::vLeseKreuzung(istringstream &iss, bool bMitGrafik) {
 }
 
 void Simulation::vLeseWeg(istringstream &iss, bool bMitGrafik) {
-	cout << "Straße" << endl;
+	// cout << "Straße" << endl;
 	string nameQuellkreuzung, nameZielkreuzung, nameWegQZ, nameWegZQ,
 			sLaenge, sTempolimit, sUeberholverbot;
 
@@ -104,12 +104,12 @@ void Simulation::vLeseWeg(istringstream &iss, bool bMitGrafik) {
 	if (p_mKreuzungen.count(nameQuellkreuzung))
 		quellkreuzung = p_mKreuzungen[nameQuellkreuzung];
 	else
-		throw runtime_error("Kreuzung nicht gefunden");
+		throw runtime_error("Kreuzung '" + nameQuellkreuzung + "' nicht gefunden");
 
 	if (p_mKreuzungen.count(nameZielkreuzung))
 		zielkreuzung = p_mKreuzungen[nameZielkreuzung];
 	else
-		throw runtime_error("Kreuzung nicht gefunden");
+		throw runtime_error("Kreuzung '" + nameZielkreuzung + "' nicht gefunden");
 
 	if (quellkreuzung != nullptr && zielkreuzung != nullptr)
 		quellkreuzung->vVerbinde(nameWegQZ, nameWegZQ, laenge, quellkreuzung,
@@ -137,7 +137,7 @@ void Simulation::vLeseWeg(istringstream &iss, bool bMitGrafik) {
 }
 
 void Simulation::vLesePkw(istringstream &iss) {
-	cout << "PKW" << endl;
+	// cout << "PKW" << endl;
 	string name, sGeschwindigkeit, sVerbrauch, sTankvolumen,
 			startkreuzungName, sStartzeit;
 	double geschwindigkeit, verbrauch, tankvolumen, startzeit;
@@ -163,7 +163,7 @@ void Simulation::vLesePkw(istringstream &iss) {
 }
 
 void Simulation::vLeseFahrrad(istringstream &iss) {
-	cout << "Fahrrad" << endl;
+	// cout << "Fahrrad" << endl;
 	string name, sGeschwindigkeit, startkreuzungName, sStartzeit;
 	double geschwindigkeit, startzeit;
 

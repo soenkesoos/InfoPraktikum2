@@ -24,6 +24,6 @@ void Losfahren::vBearbeiten()
 {
 	cout << "Losfahren Fahrausnahme: Fahrzeug " << p_rFahrzeug.sGetName() << " auf Weg " << p_rWeg.sGetName() << " ist bereit loszufahren."<<endl;
 	Fahrzeug::vKopf();
-	cout << p_rFahrzeug << endl;
+	cout << p_rFahrzeug << endl << endl;
 	p_rWeg.vAnnahme(p_rWeg.pAbgabe(p_rFahrzeug));
 }
