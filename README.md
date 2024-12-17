@@ -33,8 +33,16 @@ libs/
 ```
 
 ### 4. Build and Run the Project
-To build and run the project use the run menu
+To build and run the project use the run menu.
+The first time might give some errors.
 
+### 🎉 You're Ready!
+Your environment is now ready to edit, build, and run your code.
+
+
+
+## ‼️Contribution
+Please consider contributing to the project
 
 
 
