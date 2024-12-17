@@ -45,4 +45,7 @@ Your environment is now ready to edit, build, and run your code.
 Please consider contributing to the project
 
 
+## UNDERSTAND THE CODE!!
+und nicht petzen sonst bekomme ich vllt ärger
+
 
