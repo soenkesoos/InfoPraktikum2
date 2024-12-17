@@ -34,7 +34,7 @@ void Simulationsobjekt::vAusgeben(ostream& os) const
 
 bool Simulationsobjekt::operator ==(const Simulationsobjekt& obj) const
 {
-	if(p_iID == obj.p_iID)
+	if(p_iID == obj.p_iID+0)
 	{
 		return true;
 	}

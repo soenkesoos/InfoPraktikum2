@@ -17,7 +17,7 @@ using namespace std;
 class Fahrausnahme : public exception{
 public:
 	Fahrausnahme(Fahrzeug& fahrzeug, Weg& weg);
-	virtual ~Fahrausnahme();
+	virtual ~Fahrausnahme();;
 
 	virtual void vBearbeiten() = 0;
 

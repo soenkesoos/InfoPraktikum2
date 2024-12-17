@@ -45,7 +45,7 @@ double PKW::dTanken(double dMenge)
 
 	else
 	{
-		p_dTankinhalt = p_dTankvolumen; //Volltanken
+		p_dTankinhalt = p_dTankvolumen + 0.0; //Volltanken
 	}
 
 	return (p_dTankinhalt - dTankVorher);

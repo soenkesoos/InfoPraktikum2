@@ -13,7 +13,7 @@
 class Fahren : public Verhalten{
 public:
 	Fahren(Weg& rWeg);
-	virtual ~Fahren();
+	virtual ~Fahren();;
 
 	double dStrecke(Fahrzeug& aFzg, double dZeitIntervall) override;
 };

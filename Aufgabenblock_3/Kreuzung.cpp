@@ -55,7 +55,7 @@ void Kreuzung::vTanken(Fahrzeug& rFzg)
 
 	if(p_dTankstelle > 0)
 	{
-		p_dTankstelle -= rFzg.dTanken();
+		p_dTankstelle -= rFzg.dTanken();;
 	}
 
 	if(p_dTankstelle <= 0)

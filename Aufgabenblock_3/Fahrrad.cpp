@@ -44,7 +44,7 @@ void Fahrrad::vAusgeben(ostream& o) const
 {
 	Fahrzeug::vAusgeben(o);
 	cout << setw(20) << 0.00
-		 << setw(18) << 0.00 << "\n";
+		 << setw(18) << 0.00 << "\n";;
 }
 
 void Fahrrad::vZeichnen(const Weg& rWeg) const

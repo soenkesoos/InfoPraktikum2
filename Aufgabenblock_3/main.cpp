@@ -398,7 +398,7 @@ void vAufgabe_6_Teil3()
 		vSleep(100);
 	}
 
-	cout << "Gebe 1 ein um Fenster zu schließen";
+	cout << "Gebe 1 ein um Fenster zu schließen​";
 	cin >> x;
 	if(x==1)
 	{

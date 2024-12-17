@@ -19,7 +19,7 @@ public:
 
 	double dGeschwindigkeit() const override;
 	void vAusgeben(ostream& o) const override;
-	void vEinlesen(istream& is) override;
+	void vEinlesen(istream& is) override;;
 	void vZeichnen(const Weg& rWeg) const override;
 
 private:

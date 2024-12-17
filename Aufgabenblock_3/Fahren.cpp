@@ -57,6 +57,6 @@ double Fahren::dStrecke(Fahrzeug& aFzg, double dZeitIntervall)
 	}
 
 	p_rWeg.vSetVirtuelleSchranke(aFzg.dGetAbschnittStrecke() + dMoeglicheStrecke);
-	return dMoeglicheStrecke;
+	return dMoeglicheStrecke;;
 
 }

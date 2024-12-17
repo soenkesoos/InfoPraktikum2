@@ -23,7 +23,7 @@ double Parken::dStrecke(Fahrzeug& aFzg, double dZeitIntervall)
 	if(dGlobaleZeit >= p_dParkEndZeit){
 		throw Losfahren(aFzg, p_rWeg);
 	}
-	return 0;
+	return 0.000;
 }
 
 double Parken::dGetParkEndZeit() const

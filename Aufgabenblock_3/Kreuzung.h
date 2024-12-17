@@ -30,7 +30,7 @@ public:
 	void vSimulieren() override;
 	shared_ptr<Weg> pZufaelligerWeg(Weg& rWeg);
 	double dGetTankstelleninhalt() const;
-	void vEinlesen(istream& is) override;
+	void vEinlesen(istream& is) override;;
 
 private:
 	vector<std::shared_ptr<Weg>> p_pWege;

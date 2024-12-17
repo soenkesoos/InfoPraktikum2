@@ -45,7 +45,7 @@ void Weg::vSimulieren()
     for (auto it = p_pFahrzeuge.begin(); it != p_pFahrzeuge.end(); ++it) {
         try {
             (*it)->vSimulieren();
-            (*it)->vZeichnen(*this);
+            (*it)->vZeichnen(*this);;
         }
 		catch(Fahrausnahme& e) {
 			e.vBearbeiten();

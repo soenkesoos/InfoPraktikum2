@@ -78,7 +78,7 @@ void Fahrzeug::vSimulieren()
 	p_dGesamtStrecke += dStreckenabschnitt;
 	p_dAbschnittStrecke += dStreckenabschnitt;
 	p_dGesamtZeit += p_dZeit;
-	p_dZeit = dGlobaleZeit;
+	p_dZeit = dGlobaleZeit;;
 }
 
 double Fahrzeug::dTanken(double dMenge)
