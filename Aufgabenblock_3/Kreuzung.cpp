@@ -83,25 +83,21 @@ void Kreuzung::vSimulieren()
 
 shared_ptr<Weg> Kreuzung::pZufaelligerWeg(Weg& rWeg)
 {
-	vector<shared_ptr<Weg>> moeglicheWege;
+	// Wenn nur ein Weg vorhanden, diesen zurückgeben
+	if (p_pWege.size() == 1)
+		return p_pWege[0];
 
-	for (auto &weg : p_pWege)
-	{
-		if (weg.get() != &rWeg) // nicht der aktuelle Weg
-		{
-			moeglicheWege.push_back(weg);
-		}
-	}
-
-	if (moeglicheWege.empty()) //Sackgasse
-	{
-	return rWeg.pGetRueckweg();
-	}
-
+	// random Number setup
 	static std::mt19937 device(0);
-	uniform_int_distribution<int> dist(0, moeglicheWege.size()-1);
-	int zuf = dist(device);
-	return moeglicheWege[zuf];
+	std::uniform_int_distribution<int> dist(0, p_pWege.size() - 1);
+
+	int rand;
+	do {
+		rand = dist(device);
+	} while (p_pWege[rand]->pGetRueckweg()->getID() == pWeg.getID());
+	// Zufälliger Weg ist der Rückweg des aktuellen Weges
+
+	return p_pWege[rand];
 }
 
 double Kreuzung::dGetTankstelleninhalt() const
